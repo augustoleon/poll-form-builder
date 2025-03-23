@@ -3,7 +3,8 @@
     <nav>
       <router-link to="/">Inicio</router-link> |
       <router-link to="/create-poll">Crear Encuesta</router-link> |
-      <router-link to="/create-form">Crear Formulario</router-link>
+      <router-link to="/create-form">Crear Formulario</router-link> |
+      <router-link to="/form-responses">Ver lista de formularios completados</router-link>
     </nav>
     <router-view />
   </div>

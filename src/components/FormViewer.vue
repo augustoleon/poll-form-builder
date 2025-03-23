@@ -24,16 +24,17 @@
           :placeholder="question.placeholder || 'Escribe un número'"
           :required="question.required"
         />
-        <div v-if="question.type === 'radio'">
-          <label v-for="option in question.options" :key="option">
+        <div v-if="question.type === 'radio'" class="radio-options">
+          <div v-for="option in question.options" :key="option" class="radio-option">
             <input
               type="radio"
+              :id="`${question.id}-${option}`"
               :value="option"
               v-model="answers[question.id]"
               :required="question.required"
             />
-            {{ option }}
-          </label>
+            <label :for="`${question.id}-${option}`">{{ option }}</label>
+          </div>
         </div>
         <p v-if="errors[question.id]" class="error-message">{{ errors[question.id] }}</p>
       </div>
@@ -41,10 +42,9 @@
     </form>
   </div>
 </template>
-
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useFormStore } from '../stores/formStore';
 
 export default defineComponent({
@@ -52,6 +52,7 @@ export default defineComponent({
   setup() {
     const formStore = useFormStore();
     const route = useRoute();
+    const router = useRouter();
     const answers = ref<Record<string, string | number>>({});
     const errors = ref<Record<string, string>>({});
 
@@ -81,6 +82,7 @@ export default defineComponent({
       if (validateForm() && form.value) {
         formStore.respondToForm(form.value.id, answers.value);
         alert('Formulario enviado con éxito!');
+        router.push('/');
       } else {
         alert('Por favor, completa todas las preguntas requeridas.');
       }
@@ -112,14 +114,31 @@ export default defineComponent({
 label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
-input, textarea {
+input[type="text"],
+input[type="number"],
+textarea {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.radio-options {
+  margin-top: 10px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 10px;
 }
 
 .error-message {

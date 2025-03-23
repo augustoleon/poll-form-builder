@@ -1,6 +1,6 @@
 <template>
     <div class="home-view">
-      <h1>Encuestas y Formularios</h1>
+      <h1>Generador de Encuestas y Formularios</h1>
       <div class="list-container">
         <h2>Encuestas</h2>
         <ul v-if="polls.length > 0">

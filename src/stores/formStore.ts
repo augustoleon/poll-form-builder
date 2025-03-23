@@ -27,10 +27,16 @@ export const useFormStore = defineStore('form', {
   }),
   actions: {
     createForm(title: string, questions: FormQuestion[]) {
+      // Clonar las preguntas para evitar referencias compartidas
+      const clonedQuestions = questions.map(question => ({
+        ...question,
+        options: question.options ? [...question.options] : undefined,
+      }));
+
       const newForm: Form = {
         id: Math.random().toString(36).substr(2, 9), // Genera un ID único
         title,
-        questions,
+        questions: clonedQuestions,
         responses: [],
       };
       this.forms.push(newForm);
@@ -38,7 +44,9 @@ export const useFormStore = defineStore('form', {
     respondToForm(formId: string, answers: Record<string, string | number>) {
       const form = this.forms.find(f => f.id === formId);
       if (form) {
-        form.responses.push({ formId, answers });
+        // Clonar las respuestas para evitar referencias compartidas
+        const clonedAnswers = { ...answers };
+        form.responses.push({ formId, answers: clonedAnswers });
       }
     },
   },
