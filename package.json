@@ -1,8 +1,13 @@
 {
   "name": "poll-form-builder",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": {
+    "name": "Cesar Leon",
+    "email": "cessaleon@gmail.com",
+    "url": "https://github.com/augustoleon/"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
