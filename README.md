@@ -43,7 +43,7 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
 1. **Clona el repositorio**:
    ```bash
    git clone git@github.com:augustoleon/poll-form-builder.git
-   cd form-poll-builder
+   cd poll-form-builder
 
 2. **Instala las dependencias**:
    ```bash
